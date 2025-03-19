@@ -118,6 +118,11 @@ function addArray (_data) {
 }
 
 function repository_search (crit) {
+  //hacked in change
+  if (!crit && typeof crit === 'string') {
+    return data.sort(opt.sort)
+  }
+
   if (!crit) {
     return []
   }
@@ -307,7 +312,8 @@ const templater = {
   }
 
   function isValidQuery (query) {
-    return query && query.length > 0
+    //another hack
+    return typeof query === 'string'
   }
 
   function isWhitelistedKey (key) {

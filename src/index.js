@@ -120,7 +120,8 @@
   }
 
   function isValidQuery (query) {
-    return query && query.length > 0
+    //another hack
+    return typeof query === 'string'
   }
 
   function isWhitelistedKey (key) {
