@@ -1,5 +1,4 @@
-(function (window) {
-  'use strict'
+
 
   let options = {
     searchInput: null,
@@ -31,13 +30,9 @@
 
   const requiredOptions = ['searchInput', 'resultsContainer', 'json']
 
-  const templater = require('./Templater')
-  const repository = require('./Repository')
-  const jsonLoader = require('./JSONLoader')
-  const optionsValidator = require('./OptionsValidator')({
+  const optionsValidator = OptionsValidator({
     required: requiredOptions
   })
-  const utils = require('./utils')
 
   window.SimpleJekyllSearch = function (_options) {
     const errors = optionsValidator.validate(_options)
@@ -52,7 +47,7 @@
       middleware: options.templateMiddleware
     })
 
-    repository.setOptions({
+    repository_setOptions({
       fuzzy: options.fuzzy,
       limit: options.limit,
       sort: options.sortMiddleware,
@@ -74,12 +69,12 @@
   }
 
   function initWithJSON (json) {
-    repository.put(json)
+    repository_put(json)
     registerInput()
   }
 
   function initWithURL (url) {
-    jsonLoader.load(url, function (err, json) {
+    jsonLoader(url, function (err, json) {
       if (err) {
         throwError('failed to get JSON (' + url + ')')
       }
@@ -107,7 +102,7 @@
   function search (query) {
     if (isValidQuery(query)) {
       emptyResultsContainer()
-      render(repository.search(query), query)
+      render(repository_search(query), query)
 
       typeof options.onSearch === 'function' && options.onSearch.call()
     }
@@ -135,4 +130,4 @@
   function throwError (message) {
     throw new Error('SimpleJekyllSearch --- ' + message)
   }
-})(window)
+

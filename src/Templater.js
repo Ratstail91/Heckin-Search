@@ -1,29 +1,25 @@
-'use strict'
-
-module.exports = {
-  compile: compile,
-  setOptions: setOptions
+const templaterOptions = {
+  pattern: /\{(.*?)\}/g,
+  template: '',
+  middleware: () => {}
 }
 
-const options = {}
-options.pattern = /\{(.*?)\}/g
-options.template = ''
-options.middleware = function () {}
-
-function setOptions (_options) {
-  options.pattern = _options.pattern || options.pattern
-  options.template = _options.template || options.template
-  if (typeof _options.middleware === 'function') {
-    options.middleware = _options.middleware
-  }
-}
-
-function compile (data) {
-  return options.template.replace(options.pattern, function (match, prop) {
-    const value = options.middleware(prop, data[prop], options.template)
-    if (typeof value !== 'undefined') {
-      return value
+const templater = {
+  setOptions: function (_options) {
+    templaterOptions.pattern = _options.pattern || templaterOptions.pattern
+    templaterOptions.template = _options.template || templaterOptions.template
+    if (typeof _options.middleware === 'function') {
+      templaterOptions.middleware = _options.middleware
     }
-    return data[prop] || match
-  })
+  },
+
+  compile: function (data) {
+    return templaterOptions.template.replace(templaterOptions.pattern, function (match, prop) {
+      const value = templaterOptions.middleware(prop, data[prop], templaterOptions.template)
+      if (typeof value !== 'undefined') {
+        return value
+      }
+      return data[prop] || match
+    })
+  }
 }

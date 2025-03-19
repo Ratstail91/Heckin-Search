@@ -1,11 +1,6 @@
-'use strict'
+const utils = {
 
-module.exports = {
-  merge: merge,
-  isJSON: isJSON
-}
-
-function merge (defaultParams, mergeParams) {
+merge: function(defaultParams, mergeParams) {
   const mergedOptions = {}
   for (const option in defaultParams) {
     mergedOptions[option] = defaultParams[option]
@@ -14,9 +9,9 @@ function merge (defaultParams, mergeParams) {
     }
   }
   return mergedOptions
-}
+},
 
-function isJSON (json) {
+isJSON: function(json) {
   try {
     if (json instanceof Object && JSON.parse(JSON.stringify(json))) {
       return true
@@ -25,4 +20,5 @@ function isJSON (json) {
   } catch (err) {
     return false
   }
+}
 }

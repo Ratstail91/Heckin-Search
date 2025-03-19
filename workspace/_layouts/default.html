@@ -20,10 +20,10 @@
 
     {% include footer.html %}
 
-    <script src="{{ site.baseurl }}/js/simple-jekyll-search.min.js"></script>
+    <script src="{{ site.baseurl }}/js/heckin-search.min.js"></script>
 
     <script>
-      window.simpleJekyllSearch = new SimpleJekyllSearch({
+      window.simpleJekyllSearch = SimpleJekyllSearch({
         searchInput: document.getElementById('search-input'),
         resultsContainer: document.getElementById('results-container'),
         json: '{{ site.baseurl }}/search.json',

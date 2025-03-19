@@ -1,15 +1,3 @@
-'use strict'
-
-module.exports = {
-  put: put,
-  clear: clear,
-  search: search,
-  setOptions: setOptions
-}
-
-const FuzzySearchStrategy = require('./SearchStrategies/FuzzySearchStrategy')
-const LiteralSearchStrategy = require('./SearchStrategies/LiteralSearchStrategy')
-
 function NoSort () {
   return 0
 }
@@ -23,7 +11,7 @@ opt.searchStrategy = opt.fuzzy ? FuzzySearchStrategy : LiteralSearchStrategy
 opt.sort = NoSort
 opt.exclude = []
 
-function put (data) {
+function repository_put (data) {
   if (isObject(data)) {
     return addObject(data)
   }
@@ -61,14 +49,14 @@ function addArray (_data) {
   return added
 }
 
-function search (crit) {
+function repository_search (crit) {
   if (!crit) {
     return []
   }
   return findMatches(data, crit, opt.searchStrategy, opt).sort(opt.sort)
 }
 
-function setOptions (_opt) {
+function repository_setOptions (_opt) {
   opt = _opt || {}
 
   opt.fuzzy = _opt.fuzzy || false
@@ -91,7 +79,7 @@ function findMatches (data, crit, strategy, opt) {
 
 function findMatchesInObject (obj, crit, strategy, opt) {
   for (const key in obj) {
-    if (!isExcluded(obj[key], opt.exclude) && strategy.matches(obj[key], crit)) {
+    if (!isExcluded(obj[key], opt.exclude) && strategy(obj[key], crit)) {
       return obj
     }
   }

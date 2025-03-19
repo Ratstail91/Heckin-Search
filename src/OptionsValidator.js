@@ -1,6 +1,4 @@
-'use strict'
-
-module.exports = function OptionsValidator (params) {
+function OptionsValidator (params) {
   if (!validateParams(params)) {
     throw new Error('-- OptionsValidator: required options missing')
   }

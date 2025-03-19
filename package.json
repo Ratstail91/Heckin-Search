@@ -1,50 +1,41 @@
 {
-  "name": "simple-jekyll-search",
-  "version": "1.10.0",
-  "description": "Simple Jekyll site search using javascript and json",
-  "main": "dest/simple-jekyll-search.js",
+  "name": "heckin-search",
+  "version": "0.0.0",
+  "description": "A heckin' good fork of Simple-Jekyll-Seach.",
+  "main": "dest/heckin-search.js",
   "scripts": {
-    "cypress": "cypress",
-    "lint": "standard",
-    "pretest": "npm run lint",
-    "prebuild": "npm run test",
-    "postbuild": "npm run copy-example-code",
-    "browserify": "browserify -p browser-pack-flat/plugin src/index.js | node scripts/stamp.js > dest/simple-jekyll-search.js",
-    "build": "npm run browserify && npm run uglify",
-    "dist": "npm run build && npm run copy-example-code",
-    "test": "ava",
-    "start": "cd example; jekyll serve",
-    "copy-example-code": "cp dest/* example/js/",
-    "uglify": "uglifyjs --compress --mangle --ie8 --comments \"/^/*!/\" --output dest/simple-jekyll-search.min.js dest/simple-jekyll-search.js"
+    "build": "npm run concat && npm run uglify && npm run workspace",
+    "concat": "cat src/*.js > build/heckin-search.js",
+    "uglify": "uglifyjs build/heckin-search.js --compress --mangle --ie8 --comments \"/^/*!/\" --output build/heckin-search.min.js",
+    "workspace": "cp build/*.js workspace/js/",
+
+    "serve": "cd workspace; jekyll serve",
+
+    "dev": "npm run build && npm run serve"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/christian-fei/Simple-Jekyll-Search.git"
+    "url": "git+https://github.com/Ratstail91/Heckin-Search"
   },
-  "author": "Christian Fei",
+  "author": "Christian Fei, Kayne Ruse",
   "license": "MIT",
   "files": [
     "dest",
     "src"
   ],
   "bugs": {
-    "url": "https://github.com/christian-fei/Simple-Jekyll-Search/issues"
+    "url": "https://github.com/Ratstail91/Heckin-Search/issues"
   },
-  "homepage": "https://github.com/christian-fei/Simple-Jekyll-Search",
+  "homepage": "https://github.com/Ratstail91/Heckin-Search",
   "dependencies": {
-    "fuzzysearch": "^1.0.3"
+    "fuzzysearch": "^1.0.3",
+    "jekyll": "^3.0.0-beta1"
   },
   "devDependencies": {
-    "ava": "^3.14.0",
-    "browser-pack-flat": "^3.4.2",
-    "browserify": "^17.0.0",
-    "cypress": "^6.2.0",
-    "standard": "^16.0.3",
     "uglify-js": "^3.12.3"
   },
   "standard": {
     "ignore": [
-      "cypress/**",
       "example/**",
       "dest/**"
     ]

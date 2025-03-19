@@ -1,6 +1,6 @@
-The MIT License (MIT)
+Heckin-Search Copyright (c) 2025 Kayne Ruse, forked from
 
-Copyright (c) 2015 Christian Fei
+Simple-Jekyll-Search Copyright (c) 2015 Christian Fei
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
